@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "multi_layer_perceptron"
+version = "0.1.0"
+description = "Multi Layer Perceptron developed with Numpy"
+authors = ["Joel Medina"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.26.4"
+matplotlib = "^3.8.4"
+typer = "^0.12.3"
+pandas = "^2.2.2"
+scikit-learn = "^1.4.2"
+pyqt6 = "^6.7.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.10.0"
+black = "^24.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
