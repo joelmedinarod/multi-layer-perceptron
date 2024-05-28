@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "multi_layer_perceptron"
 version = "0.1.0"
-description = "Multi Layer Perceptron developed with Numpy"
+description = "Multi Layer Perceptron developed using Numpy"
 authors = ["Joel Medina"]
 readme = "README.md"
 

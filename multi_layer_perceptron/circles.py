@@ -19,10 +19,10 @@ y_test = y[num_train:]
 
 # Initialize a Multi Layer Perceptron with 2 input
 # neurons, 8 hidden units and 2 output neurons.
-mlp = MultiLayerPerceptron(input_size=2, hidden_size=8, output_size=2)
+mlp = MultiLayerPerceptron(n_features=2, n_hidden_layers=1, hidden_size=8, n_classes=2)
 
 # Train the Multi Layer Perceptron
-mlp.train(X_train, y_train, epochs=1000, learning_rate=0.3)
+mlp.train(X_train, y_train, epochs=10000, learning_rate=0.03)
 
 # Predict on the test data and print accuracy
 y_pred = mlp.predict(X_test)

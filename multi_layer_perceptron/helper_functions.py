@@ -36,8 +36,10 @@ def softmax(x: np.ndarray) -> np.ndarray:
     Returns:
     pred_probs: prediction probabilities
     """
-    exps = np.exp(x - np.max(x, axis=1, keepdims=True))
-    return exps / np.sum(exps, axis=1, keepdims=True)
+    shifted_x = x - np.max(x, axis=1, keepdims=True)
+    exps = np.exp(shifted_x)
+    sum_exps = np.sum(exps, axis=1, keepdims=True)
+    return exps / sum_exps
 
 
 def cross_entropy_loss(y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
@@ -50,5 +52,13 @@ def cross_entropy_loss(y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
 def cross_entropy_derivative(y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
     """Derivative of the Cross Entropy Loss Function"""
     n_samples = y_true.shape[0]
-    y_pred[np.arange(n_samples), y_true] -= 1
-    return y_pred / n_samples
+    grad = y_pred.copy()
+    grad[np.arange(n_samples), y_true] -= 1
+    return grad / n_samples
+
+
+def xavier_initialization(num_inputs: int, num_outputs: int) -> np.ndarray:
+    """Xavier initialization for initializing weights of a linear layer"""
+    return np.random.randn(num_inputs, num_outputs) * np.sqrt(
+        2.0 / (num_inputs + num_outputs)
+    )
