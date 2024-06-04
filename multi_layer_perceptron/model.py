@@ -110,48 +110,52 @@ class MultiLayerPerceptron:
         for epoch in range(epochs):
             y_preds = self.predict(x)
             self.backward(x, y, learning_rate)
-            if (epoch + 1) % 100 == 0:
-                loss = cross_entropy_loss(y, self.forward(x))
-                print(
-                    f"Epoch {epoch+1}/{epochs}, Loss: {loss}, Accuracy: {accuracy_fn(y, y_preds)}"
-                )
+            # if (epoch + 1) % 100 == 0:
+            loss = cross_entropy_loss(y, self.forward(x))
+            print(
+                f"Epoch {epoch+1}/{epochs}, Loss: {loss}, Accuracy: {accuracy_fn(y, y_preds)}"
+            )
 
     def predict(self, x: np.ndarray) -> np.ndarray:
         """Classify input data"""
         output = self.forward(x)
         return np.argmax(output, axis=1)
 
-    def plot_decision_boundaries(
-        self, x: np.ndarray, y: np.ndarray, grid_resolution=(501, 501)
-    ) -> None:
-        """
-        Plot decision boundaries of the model
 
-        Create a grid of data points and make predictions at those
-        data points. Create a plot with the predictions of the model
-        and add the evaluated data set to the graph.
-        """
-        # Setup prediction boundaries and grid
-        x_min, x_max = x[:, 0].min() - 0.1, x[:, 0].max() + 0.1
-        y_min, y_max = x[:, 1].min() - 0.1, x[:, 1].max() + 0.1
-        xx, yy = np.meshgrid(
-            np.linspace(x_min, x_max, grid_resolution[0]),
-            np.linspace(y_min, y_max, grid_resolution[1]),
-        )
+def plot_decision_boundaries(
+    model: MultiLayerPerceptron,
+    x: np.ndarray,
+    y: np.ndarray,
+    grid_resolution=(501, 501),
+) -> None:
+    """
+    Plot decision boundaries of the model
 
-        # Make features
-        x_to_pred_on = np.column_stack((xx.ravel(), yy.ravel()))
+    Create a grid of data points and make predictions at those
+    data points. Create a plot with the predictions of the model
+    and add the evaluated data set to the graph.
+    """
+    # Setup prediction boundaries and grid
+    x_min, x_max = x[:, 0].min() - 0.1, x[:, 0].max() + 0.1
+    y_min, y_max = x[:, 1].min() - 0.1, x[:, 1].max() + 0.1
+    xx, yy = np.meshgrid(
+        np.linspace(x_min, x_max, grid_resolution[0]),
+        np.linspace(y_min, y_max, grid_resolution[1]),
+    )
 
-        # Make predictions
-        y_pred = self.predict(x_to_pred_on)
+    # Make features
+    x_to_pred_on = np.column_stack((xx.ravel(), yy.ravel()))
 
-        # Reshape preds and plot
-        y_pred = np.reshape(y_pred, xx.shape)
-        plt.contourf(xx, yy, y_pred, cmap=plt.cm.RdYlBu, alpha=0.7)
+    # Make predictions
+    y_pred = model.predict(x_to_pred_on)
 
-        # Add data set to the plot
-        plt.scatter(x[:, 0], x[:, 1], c=y, s=40, cmap=plt.cm.RdYlBu)
+    # Reshape preds and plot
+    y_pred = np.reshape(y_pred, xx.shape)
+    plt.contourf(xx, yy, y_pred, cmap=plt.cm.RdYlBu, alpha=0.7)
 
-        plt.xlim(xx.min(), xx.max())
-        plt.ylim(yy.min(), yy.max())
-        plt.show()
+    # Add data set to the plot
+    plt.scatter(x[:, 0], x[:, 1], c=y, s=40, cmap=plt.cm.RdYlBu)
+
+    plt.xlim(xx.min(), xx.max())
+    plt.ylim(yy.min(), yy.max())
+    plt.show()

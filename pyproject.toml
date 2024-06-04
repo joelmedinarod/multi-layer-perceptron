@@ -4,18 +4,21 @@ version = "0.1.0"
 description = "Multi Layer Perceptron developed using Numpy"
 authors = ["Joel Medina"]
 readme = "README.md"
+packages = [
+    { include = "multi_layer_perceptron" },
+]
+
+[tool.poetry.scripts]
+mnist = "multi_layer_perceptron.mnist:app"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "~3.10"
 numpy = "^1.26.4"
-matplotlib = "^3.8.4"
+matplotlib = "^3.9.0"
 typer = "^0.12.3"
-pandas = "^2.2.2"
-scikit-learn = "^1.4.2"
-pyqt6 = "^6.7.0"
-keras = "^3.3.3"
-tensorflow = "^2.16.1"
-
+scikit-learn = "^1.5.0"
+tensorflow-io-gcs-filesystem = "0.31.0"
+keras = "~2.11"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.10.0"

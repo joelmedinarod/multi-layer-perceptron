@@ -12,9 +12,7 @@ num_datapoints = len(X)
 num_features = len(X[0])
 
 # Split the dataset into training and test dataset
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, random_state=0
-)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
 # Initialize a Multi Layer Perceptron with 16 hidden units
 mlp = MultiLayerPerceptron(

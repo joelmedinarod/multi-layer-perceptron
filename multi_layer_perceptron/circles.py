@@ -1,5 +1,5 @@
 from sklearn.datasets import make_circles
-from model import MultiLayerPerceptron
+from model import MultiLayerPerceptron, plot_decision_boundaries
 from helper_functions import accuracy_fn
 
 # Create data points of two concentric circles
@@ -28,4 +28,4 @@ mlp.train(X_train, y_train, epochs=10000, learning_rate=0.03)
 y_pred = mlp.predict(X_test)
 print("Accuracy on test data:", accuracy_fn(y_test, y_pred))
 
-mlp.plot_decision_boundaries(X, y, grid_resolution=(101, 101))
+plot_decision_boundaries(mlp, X, y, grid_resolution=(101, 101))
