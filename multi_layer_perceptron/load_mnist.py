@@ -1,10 +1,12 @@
 import pickle
+
 import matplotlib.pyplot as plt
-from tensorflow.keras.datasets import mnist
 import numpy as np
+from sklearn.metrics import accuracy_score
+from tensorflow.keras.datasets import mnist
 
 # Path to saved model for classifying numbers (mnist dataset)
-PATH_TO_SAVED_MODEL = "mlp.pkl"
+PATH_TO_SAVED_MODEL = "models/mlp.pkl"
 
 # Load the MNIST dataset
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -20,14 +22,18 @@ y_test = np.array(y_test.reshape(10000))
 with open(PATH_TO_SAVED_MODEL, "rb") as inp_file:
     mlp = pickle.load(inp_file)
 
+# Predict and evaluate on test data
+y_pred = mlp.predict(x_test)
+test_accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy on test data: {test_accuracy * 100:.2f}")
 
-# Plot the first 20 images
+# Plot false prefictions from the first 40 images (after image #1000)
 plt.figure(figsize=(10, 5))
-for i in range(80):
+for i in range(40):
     y_pred = mlp.predict(x_test[1000 + i])
     y = y_test[1000 + i]
     if y_pred != y:
-        plt.subplot(8, 10, i + 1)
+        plt.subplot(5, 8, i + 1)
         plt.imshow(
             x_test[i + 1000].reshape(28, 28), cmap="gray"
         )  # Reshape each image to 28x28

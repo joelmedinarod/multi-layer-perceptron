@@ -1,9 +1,10 @@
-from model import MultiLayerPerceptron
 import pickle
-from sklearn.metrics import accuracy_score
-from tensorflow.keras.datasets import fashion_mnist
+
 import matplotlib.pyplot as plt
 import numpy as np
+from model import MultiLayerPerceptron
+from sklearn.metrics import accuracy_score
+from tensorflow.keras.datasets import fashion_mnist
 
 # Load the MNIST dataset
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
@@ -28,5 +29,5 @@ test_accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy on test data: {test_accuracy * 100:.2f}")
 
 # Save trained Multi-Layer Perceptron
-with open("fashion_mlp.pkl", "wb") as outp:
+with open("models/fashion_mlp.pkl", "wb") as outp:
     pickle.dump(mlp, outp, pickle.HIGHEST_PROTOCOL)

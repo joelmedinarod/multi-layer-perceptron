@@ -1,11 +1,12 @@
-from model import MultiLayerPerceptron
 import pickle
-from sklearn.metrics import accuracy_score
-from keras.datasets import mnist
+
 import numpy as np
+from keras.datasets import mnist
+from model import MultiLayerPerceptron
+from sklearn.metrics import accuracy_score
 
 # Path to file to save model parameters after training
-SAVE_MODEL_FILEPATH = "mlp.pkl"
+SAVE_MODEL_FILEPATH = "models/mlp.pkl"
 
 # Training hyperparameters
 EPOCHS = 1000

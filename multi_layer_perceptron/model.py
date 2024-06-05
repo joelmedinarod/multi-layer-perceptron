@@ -1,15 +1,16 @@
+from typing import List
+
+import matplotlib.pyplot as plt
 import numpy as np
 from helper_functions import (
-    accuracy_fn,
-    softmax,
     ReLU,
     ReLU_derivative,
+    accuracy_fn,
     cross_entropy_derivative,
     cross_entropy_loss,
+    softmax,
     xavier_initialization,
 )
-import matplotlib.pyplot as plt
-from typing import List
 
 
 class LinearLayer:
@@ -97,6 +98,7 @@ class MultiLayerPerceptron:
         y: np.ndarray,
         epochs: int,
         learning_rate: float,
+        print_every_n_epochs: int = 0,
     ) -> None:
         """
         Train neural network
@@ -106,15 +108,24 @@ class MultiLayerPerceptron:
         y: output data (labels / classes)
         epochs: number of training iterations
         learning_rate: step size for gradient descent
+        print_every_n_epochs: n defines how often loss and
+            accuracy are printed while training the model.
+            Default: 0 (never print)
         """
-        for epoch in range(epochs):
+        for epoch in range(epochs):  #
+            # Predict on training data
             y_preds = self.predict(x)
+            # Propagate training loss
             self.backward(x, y, learning_rate)
-            # if (epoch + 1) % 100 == 0:
-            loss = cross_entropy_loss(y, self.forward(x))
-            print(
-                f"Epoch {epoch+1}/{epochs}, Loss: {loss}, Accuracy: {accuracy_fn(y, y_preds)}"
-            )
+
+            if print_every_n_epochs != 0:
+                if (epoch + 1) % print_every_n_epochs == 0:
+                    # Calculate Loss
+                    loss = cross_entropy_loss(y, self.forward(x))
+                    # Print actual training accuracy and loss
+                    print(
+                        f"Epoch {epoch+1}/{epochs}, Loss: {loss}, Accuracy: {accuracy_fn(y, y_preds)}"
+                    )
 
     def predict(self, x: np.ndarray) -> np.ndarray:
         """Classify input data"""

@@ -1,7 +1,9 @@
 import pickle
+
 import matplotlib.pyplot as plt
-from tensorflow.keras.datasets import fashion_mnist
 import numpy as np
+from sklearn.metrics import accuracy_score
+from tensorflow.keras.datasets import fashion_mnist
 
 # Load the MNIST dataset
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
@@ -27,11 +29,15 @@ y_test = np.array(y_test.reshape(10000))
 
 
 # Save trained Multi-Layer Perceptron
-with open("fashion_mlp.pkl", "rb") as inp_file:
+with open("models/fashion_mlp.pkl", "rb") as inp_file:
     mlp = pickle.load(inp_file)
 
+# Predict and evaluate on test data
+y_pred = mlp.predict(x_test)
+test_accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy on test data: {test_accuracy * 100:.2f}")
 
-# Plot the first 20 images
+# Plot false predictions from the first 40 images (after image #1000)
 plt.figure(figsize=(10, 5))
 for i in range(40):
     y_pred = fashion_mnist_labels[int(mlp.predict(x_test[1000 + i]))]
