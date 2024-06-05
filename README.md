@@ -31,7 +31,27 @@ There is a problem installing Tensorflow using Poetry. For this reason, I instal
 
 I run the scripts from main directory:
 
+To train and inference of circles dataset
 '''
-
 python multi_layer_perceptron/circles.py
+'''
+To train and inference of IRIS dataset
+'''
+python multi_layer_perceptron/iris.py
+'''
+To train model on MNIST Dataset and save the trained model
+'''
+python multi_layer_perceptron/mnist.py
+'''
+To train model on Fashion MNIST Dataset and save the trained model
+'''
+python multi_layer_perceptron/fashion_mnist.py
+'''
+To load model trained on MNIST Dataset and use it for inference on test data
+'''
+python multi_layer_perceptron/load_mnist.py
+'''
+To load model trained on Fashion MNIST Dataset and use it for inference on test data
+'''
+python multi_layer_perceptron/load_fashion.py
 '''
